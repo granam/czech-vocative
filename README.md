@@ -69,6 +69,7 @@ Pro četnosti jmen v ČR podle [statistického úřadu](http://www.mvcr.cz/clane
 funkce funguje správně v 99.7% případů.
 
 ```
+<?php
 use Vokativ\Vokativ;
 Vokativ::isMale('Michal'); 		// true
 Vokativ::isMale('Novák'); 		// true
