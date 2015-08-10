@@ -15,7 +15,7 @@ Použití
 =======
 
 ```
-php > use Vokativ\Vokativ;
+php > use Vokativ\\Vokativ;
 php > echo Vokativ::vokativ('Petr');
 petře
 php > echo Vokativ::vokativ('Novák');
@@ -76,7 +76,7 @@ Pro četnosti jmen v ČR podle [statistického úřadu](http://www.mvcr.cz/clane
 funkce funguje správně v 99.7% případů.
 
 ```
-php > use \Vokativ;
+php > use Vokativ\\Vokativ;
 php > echo Vokativ::isMale('Michal');
 true
 php > echo Vokativ::isMale('Novák');
