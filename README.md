@@ -15,6 +15,7 @@ Použití
 =======
 
 ```
+<?php
 php > use Vokativ\Vokativ;
 php > echo Vokativ::vokativ('Petr');
 petře
@@ -41,6 +42,7 @@ Použijte *false*, pokud si přejete zadané jméno skloňovat jako mužské.
 Ve výchozím případě *null* je pohlaví detekováno automaticky.
 
 ```
+<?php
 php > echo Vokativ::vokativ('Michel');  // automaticky skloňuje jako mužské jméno
 micheli
 php > echo Vokativ::vokativ('Michel', false);
@@ -60,6 +62,7 @@ Ve výchozím případě *null* je typ jména detekován automaticky.
 Hodnota tohoto parametru ovlivňuje pouze skloňování ženských jmen.
 
 ```
+<?php
 >>> echo Vokativ::vokativ('Ivanova');  // automaticky skloňuje jako příjmení
 ivanova
 >>> echo Vokativ::vokativ('Ivanova', true, true);
