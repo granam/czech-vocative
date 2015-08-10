@@ -15,14 +15,14 @@ Použití
 =======
 
 ```
-php > use \Vokativ;
-php > echo Vokativ('Petr');
+php > use Vokativ\Vokativ;
+php > echo Vokativ::vokativ('Petr');
 petře
-php > echo Vokativ('Novák');
+php > echo Vokativ::vokativ('Novák');
 nováku
-php > echo Vokativ('Adriana');
+php > echo Vokativ::vokativ('Adriana');
 adriano
-php > echo Vokativ('Fialová');
+php > echo Vokativ::vokativ('Fialová');
 fialová
 ```
 
@@ -41,11 +41,11 @@ Použijte *false*, pokud si přejete zadané jméno skloňovat jako mužské.
 Ve výchozím případě *null* je pohlaví detekováno automaticky.
 
 ```
-php > echo Vokativ('Michel');  // automaticky skloňuje jako mužské jméno
+php > echo Vokativ::vokativ('Michel');  // automaticky skloňuje jako mužské jméno
 micheli
-php > echo Vokativ('Michel', false);
+php > echo Vokativ::vokativ('Michel', false);
 micheli
-php > echo Vokativ('Michel', true);
+php > echo Vokativ::vokativ('Michel', true);
 michel
 ```
 
@@ -60,11 +60,11 @@ Ve výchozím případě *null* je typ jména detekován automaticky.
 Hodnota tohoto parametru ovlivňuje pouze skloňování ženských jmen.
 
 ```
->>> echo Vokativ('Ivanova');  // automaticky skloňuje jako příjmení
+>>> echo Vokativ::vokativ('Ivanova');  // automaticky skloňuje jako příjmení
 ivanova
->>> echo Vokativ('Ivanova', true, true);
+>>> echo Vokativ::vokativ('Ivanova', true, true);
 ivanova
->>> echo Vokativ('Ivanova', true, false);
+>>> echo Vokativ::vokativ('Ivanova', true, false);
 ivanovo
 ```
 
@@ -77,14 +77,14 @@ funkce funguje správně v 99.7% případů.
 
 ```
 php > use \Vokativ;
-php > echo Vokativ->sex('Michal');
-m
-php > echo Vokativ->sex('Novák');
-m
-php > echo Vokativ->sex('Tereza');
-w
-php > echo Vokativ->sex('Nováková');
-w
+php > echo Vokativ::isMale('Michal');
+true
+php > echo Vokativ::isMale('Novák');
+true
+php > echo Vokativ::isMale('Tereza');
+false
+php > echo Vokativ::isMale('Nováková');
+false
 ```
 
 Kudos

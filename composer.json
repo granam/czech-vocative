@@ -9,5 +9,21 @@
             "email": "petr@joachim.cz"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Vokativ\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vokativ\\Test\\": "test/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php test"
+    }
 }
