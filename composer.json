@@ -1,0 +1,13 @@
+{
+    "name": "bigit/vokativ",
+    "description": "Knihovna pro skloňování českých jmen do 5. pádu pro účely generování oslovení.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Petr Joachim",
+            "email": "petr@joachim.cz"
+        }
+    ],
+    "require": {}
+}
