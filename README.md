@@ -16,15 +16,11 @@ Použití
 
 ```
 <?php
-php > use Vokativ\Vokativ;
-php > echo Vokativ::vokativ('Petr');
-petře
-php > echo Vokativ::vokativ('Novák');
-nováku
-php > echo Vokativ::vokativ('Adriana');
-adriano
-php > echo Vokativ::vokativ('Fialová');
-fialová
+use Vokativ\Vokativ;
+Vokativ::vokativ('Petr');		// 'petře'
+Vokativ::vokativ('Novák');		// 'nováku'
+Vokativ::vokativ('Adriana');	// 'adriano'
+Vokativ::vokativ('Fialová');	// 'fialová'
 ```
 
 Funkce **Vokativ($name, $isWoman = null, $isLastName = null)** bere jako první argument vlastní jméno v 1. pádu jednotného čísla a vrátí ho vyskloňované v 5. pádu.
@@ -43,12 +39,9 @@ Ve výchozím případě *null* je pohlaví detekováno automaticky.
 
 ```
 <?php
-php > echo Vokativ::vokativ('Michel');  // automaticky skloňuje jako mužské jméno
-micheli
-php > echo Vokativ::vokativ('Michel', false);
-micheli
-php > echo Vokativ::vokativ('Michel', true);
-michel
+Vokativ::vokativ('Michel');  		// 'micheli' - automaticky jako mužské
+Vokativ::vokativ('Michel', false);	// 'micheli'
+Vokativ::vokativ('Michel', true);	// 'michel'
 ```
 
 #### $isLastName
@@ -63,12 +56,9 @@ Hodnota tohoto parametru ovlivňuje pouze skloňování ženských jmen.
 
 ```
 <?php
->>> echo Vokativ::vokativ('Ivanova');  // automaticky skloňuje jako příjmení
-ivanova
->>> echo Vokativ::vokativ('Ivanova', true, true);
-ivanova
->>> echo Vokativ::vokativ('Ivanova', true, false);
-ivanovo
+Vokativ::vokativ('Ivanova'); 				// 'ivanova' - automaticky příjmení
+Vokativ::vokativ('Ivanova', true, true);	// 'ivanova'
+Vokativ::vokativ('Ivanova', true, false);	// 'ivanovo'
 ```
 
 Automatická detekce pohlaví
@@ -79,15 +69,11 @@ Pro četnosti jmen v ČR podle [statistického úřadu](http://www.mvcr.cz/clane
 funkce funguje správně v 99.7% případů.
 
 ```
-php > use Vokativ\Vokativ;
-php > echo Vokativ::isMale('Michal');
-true
-php > echo Vokativ::isMale('Novák');
-true
-php > echo Vokativ::isMale('Tereza');
-false
-php > echo Vokativ::isMale('Nováková');
-false
+use Vokativ\Vokativ;
+Vokativ::isMale('Michal'); 		// true
+Vokativ::isMale('Novák'); 		// true
+Vokativ::isMale('Tereza'); 		// false
+Vokativ::isMale('Nováková'); 	// false
 ```
 
 Kudos
