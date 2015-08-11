@@ -31,9 +31,9 @@ class TestName extends PHPUnit_Framework_TestCase
     public function testBasics()
     {
         $this->assertTrue(Name::isMale('Tom'));
-        $this->assertEquals(Name::vokativ('Tom'), 'tome');
-        $this->assertEquals(Name::vokativ('toM'), 'tome');
-        $this->assertEquals(Name::vokativ('ToM'), 'tome');
+        $this->assertEquals('tome', Name::vokativ('Tom'));
+        $this->assertEquals('tome', Name::vokativ('toM'));
+        $this->assertEquals('tome', Name::vokativ('ToM'));
         $this->assertInternalType('string', Name::vokativ('Tom'));
     }
 
@@ -42,10 +42,10 @@ class TestName extends PHPUnit_Framework_TestCase
         foreach (
             $this->loadTests('man_first_name_tests') as list($name, $vok)) {
 
-            $this->assertEquals(Name::vokativ($name, false, false), $vok);
-            $this->assertEquals(Name::vokativ($name, null, false), $vok);
-            $this->assertEquals(Name::vokativ($name, false), $vok);
-            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertEquals($vok, Name::vokativ($name, false, false));
+            $this->assertEquals($vok, Name::vokativ($name, null, false));
+            $this->assertEquals($vok, Name::vokativ($name, false));
+            $this->assertEquals($vok, Name::vokativ($name));
             $this->assertTrue(Name::isMale($name));
         }
     }
@@ -55,10 +55,10 @@ class TestName extends PHPUnit_Framework_TestCase
         foreach (
             $this->loadTests('man_last_name_tests') as list($name, $vok)) {
 
-            $this->assertEquals(Name::vokativ($name, false, true), $vok);
-            $this->assertEquals(Name::vokativ($name, null, true), $vok);
-            $this->assertEquals(Name::vokativ($name, false), $vok);
-            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertEquals($vok, Name::vokativ($name, false, true));
+            $this->assertEquals($vok, Name::vokativ($name, null, true));
+            $this->assertEquals($vok, Name::vokativ($name, false));
+            $this->assertEquals($vok, Name::vokativ($name));
             $this->assertTrue(Name::isMale($name));
         }
     }
@@ -68,10 +68,10 @@ class TestName extends PHPUnit_Framework_TestCase
         foreach (
             $this->loadTests('woman_first_name_tests') as list($name, $vok)) {
 
-            $this->assertEquals(Name::vokativ($name, true, false), $vok);
-            $this->assertEquals(Name::vokativ($name, null, false), $vok);
-            $this->assertEquals(Name::vokativ($name, true), $vok);
-            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertEquals($vok, Name::vokativ($name, true, false));
+            $this->assertEquals($vok, Name::vokativ($name, null, false));
+            $this->assertEquals($vok, Name::vokativ($name, true));
+            $this->assertEquals($vok, Name::vokativ($name));
             $this->assertFalse(Name::isMale($name));
         }
     }
@@ -81,10 +81,10 @@ class TestName extends PHPUnit_Framework_TestCase
         foreach (
             $this->loadTests('woman_last_name_tests') as list($name, $vok)) {
 
-            $this->assertEquals(Name::vokativ($name, true, true), $vok);
-            $this->assertEquals(Name::vokativ($name, null, true), $vok);
-            $this->assertEquals(Name::vokativ($name, true), $vok);
-            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertEquals($vok, Name::vokativ($name, true, true));
+            $this->assertEquals($vok, Name::vokativ($name, null, true));
+            $this->assertEquals($vok, Name::vokativ($name, true));
+            $this->assertEquals($vok, Name::vokativ($name));
             $this->assertFalse(Name::isMale($name));
         }
     }
