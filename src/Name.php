@@ -21,7 +21,7 @@ class Name
     {
         if(gettype($name) !== "string")
             throw new InvalidArgumentException('`$name` has to be string');
-        $name = mb_strtolower($name);
+        $name = mb_strtolower($name, 'UTF-8');
 
         if (is_null($isWoman)) {
             $isWoman = !self::isMale($name);
@@ -55,7 +55,7 @@ class Name
     {
         if(gettype($name) !== "string")
             throw new InvalidArgumentException('`$name` has to be string');
-        $name = mb_strtolower($name);
+        $name = mb_strtolower($name, 'UTF-8');
 
         list($match, $sex) = self::getMatchingSuffix(
             $name,
@@ -134,7 +134,7 @@ class Name
     {
         $filename = VOKATIV_DATA_DIR . $file;
         if(!file_exists($filename))
-            throw new RuntimeException('VOKATIV: Data file ' . $filename . 'not found');
+            throw new RuntimeException('Data file ' . $filename . 'not found');
         return unserialize(file_get_contents($filename));
     }
 }
