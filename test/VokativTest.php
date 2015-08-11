@@ -5,7 +5,7 @@ use Vokativ\Name;
 use PHPUnit_Framework_TestCase;
 
 define(
-    "TEST_DIR",
+    "VOKATIV_TEST_DIR",
     __DIR__ . DIRECTORY_SEPARATOR .'data' . DIRECTORY_SEPARATOR
 );
 
@@ -13,8 +13,7 @@ class TestName extends PHPUnit_Framework_TestCase
 {
     private function loadTests($name)
     {
-        $filename = TEST_DIR . $name . ".txt";
-        $this->assertTrue(file_exists($filename));
+        $filename = VOKATIV_TEST_DIR . $name . ".txt";
 
         $f = fopen($filename, 'r');
         $tests = [];
@@ -31,6 +30,7 @@ class TestName extends PHPUnit_Framework_TestCase
 
     public function testBasics()
     {
+        $this->assertTrue(Name::isMale('Tom'));
         $this->assertEquals(Name::vokativ('Tom'), 'tome');
         $this->assertEquals(Name::vokativ('toM'), 'tome');
         $this->assertEquals(Name::vokativ('ToM'), 'tome');
