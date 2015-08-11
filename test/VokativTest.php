@@ -4,38 +4,89 @@ namespace Vokativ\Test;
 use Vokativ\Name;
 use PHPUnit_Framework_TestCase;
 
-define("TEST_DIR", __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR);
+define(
+    "TEST_DIR",
+    __DIR__ . DIRECTORY_SEPARATOR .'data' . DIRECTORY_SEPARATOR
+);
 
 class TestName extends PHPUnit_Framework_TestCase
 {
     private function loadTests($name)
     {
-        $this->assertTrue(file_exists(TEST_DIR . $name . ".txt"));
+        $filename = TEST_DIR . $name . ".txt";
+        $this->assertTrue(file_exists($filename));
+
+        $f = fopen($filename, 'r');
+        $tests = [];
+
+        while ($line = rtrim(fgets($f))) {
+            // skip empty lines
+            if (mb_strlen($line) > 0)
+                $tests[] = explode(' ', $line, 2);
+        }
+
+        fclose($f);
+        return $tests;
     }
 
     public function testBasics()
     {
-
+        $this->assertEquals(Name::vokativ('Tom'), 'tome');
+        $this->assertEquals(Name::vokativ('toM'), 'tome');
+        $this->assertEquals(Name::vokativ('ToM'), 'tome');
+        $this->assertInternalType('string', Name::vokativ('Tom'));
     }
 
     public function testManFirstNames()
     {
-        return Name::vokativ('Petr');
+        foreach (
+            $this->loadTests('man_first_name_tests') as list($name, $vok)) {
+
+            $this->assertEquals(Name::vokativ($name, false, false), $vok);
+            $this->assertEquals(Name::vokativ($name, null, false), $vok);
+            $this->assertEquals(Name::vokativ($name, false), $vok);
+            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertTrue(Name::isMale($name));
+        }
     }
 
     public function testManLastNames()
     {
-        return Name::vokativ('Petr');
+        foreach (
+            $this->loadTests('man_last_name_tests') as list($name, $vok)) {
+
+            $this->assertEquals(Name::vokativ($name, false, true), $vok);
+            $this->assertEquals(Name::vokativ($name, null, true), $vok);
+            $this->assertEquals(Name::vokativ($name, false), $vok);
+            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertTrue(Name::isMale($name));
+        }
     }
 
     public function testWomanFirstNames()
     {
-        return Name::vokativ('Petr');
+        foreach (
+            $this->loadTests('woman_first_name_tests') as list($name, $vok)) {
+
+            $this->assertEquals(Name::vokativ($name, true, false), $vok);
+            $this->assertEquals(Name::vokativ($name, null, false), $vok);
+            $this->assertEquals(Name::vokativ($name, true), $vok);
+            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertFalse(Name::isMale($name));
+        }
     }
 
     public function testWomanLastNames()
     {
-        return Name::vokativ('Petr');
+        foreach (
+            $this->loadTests('woman_last_name_tests') as list($name, $vok)) {
+
+            $this->assertEquals(Name::vokativ($name, true, true), $vok);
+            $this->assertEquals(Name::vokativ($name, null, true), $vok);
+            $this->assertEquals(Name::vokativ($name, true), $vok);
+            $this->assertEquals(Name::vokativ($name), $vok);
+            $this->assertFalse(Name::isMale($name));
+        }
     }
 
     public function testCornerCases()
