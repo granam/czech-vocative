@@ -17,33 +17,33 @@ class Name
      * @param boolean|null $isLastName
      * @return string Jméno v 5. pádu
      */
-    public static function vokativ($name, $isWoman = null, $isLastName = null)
+    public function vokativ($name, $isWoman = null, $isLastName = null)
     {
         if(gettype($name) !== "string")
             throw new InvalidArgumentException('`$name` has to be string');
         $name = mb_strtolower($name, 'UTF-8');
 
         if (is_null($isWoman)) {
-            $isWoman = !self::isMale($name);
+            $isWoman = !$this->isMale($name);
         }
 
         if ($isWoman) {
             if (is_null($isLastName)) {
-                list($match, $type) = self::getMatchingSuffix(
+                list($match, $type) = $this->getMatchingSuffix(
                     $name,
-                    self::getWomanFirstVsLastNameSuffixes()
+                    $this->getWomanFirstVsLastNameSuffixes()
                 );
 
                 $isLastName = $type != 'l' ? false : true;
             }
 
             if ($isLastName) {
-                return self::vokativWomanLastName($name);
+                return $this->vokativWomanLastName($name);
             }
-            return self::vokativWomanFirstName($name);
+            return $this->vokativWomanFirstName($name);
         }
 
-        return self::vokativMan($name);
+        return $this->vokativMan($name);
     }
 
     /**
@@ -51,25 +51,25 @@ class Name
      * @param string $name Jméno v prvním pádu
      * @return boolean Rozhodne, jeslti je jméno mužské
      */
-    public static function isMale($name)
+    public function isMale($name)
     {
         if(gettype($name) !== "string")
             throw new InvalidArgumentException('`$name` has to be string');
         $name = mb_strtolower($name, 'UTF-8');
 
-        list($match, $sex) = self::getMatchingSuffix(
+        list($match, $sex) = $this->getMatchingSuffix(
             $name,
-            self::getManVsWomanSuffixes()
+            $this->getManVsWomanSuffixes()
         );
 
         return $sex === "w" ? false : true ;
     }
 
-    protected static function vokativMan($name)
+    protected function vokativMan($name)
     {
-        list($match, $suffix) = self::getMatchingSuffix(
+        list($match, $suffix) = $this->getMatchingSuffix(
             $name,
-            self::getManSuffixes()
+            $this->getManSuffixes()
         );
 
         if ($match) {
@@ -79,19 +79,19 @@ class Name
         return $name . $suffix;
     }
 
-    protected static function vokativWomanFirstName($name)
+    protected function vokativWomanFirstName($name)
     {
         if(mb_substr($name, -1) === "a")
             return mb_substr($name, 0, -1) . "o";
         return $name;
     }
 
-    protected static function vokativWomanLastName($name)
+    protected function vokativWomanLastName($name)
     {
         return $name;
     }
 
-    protected static function getMatchingSuffix($name, $suffixes)
+    protected function getMatchingSuffix($name, $suffixes)
     {
         // it is important(!) to try suffixes from longest to shortest
         foreach (range(mb_strlen($name), 1) as $length) {
@@ -103,34 +103,34 @@ class Name
         return ['', $suffixes['']];
     }
 
-    protected static $_manSuffixes = null;
-    protected static $_manVsWomanSuffixes = null;
-    protected static $_womanFirstVsLastSuffixes = null;
+    protected $_manSuffixes = null;
+    protected $_manVsWomanSuffixes = null;
+    protected $_womanFirstVsLastSuffixes = null;
 
-    protected static function getManSuffixes()
+    protected function getManSuffixes()
     {
-        if(is_null(self::$_manSuffixes))
-            self::$_manSuffixes = self::readSuffixes('man_suffixes');
-        return self::$_manSuffixes;
+        if(is_null($this->_manSuffixes))
+            $this->_manSuffixes = $this->readSuffixes('man_suffixes');
+        return $this->_manSuffixes;
     }
 
-    protected static function getManVsWomanSuffixes()
+    protected function getManVsWomanSuffixes()
     {
-        if(is_null(self::$_manVsWomanSuffixes))
-            self::$_manVsWomanSuffixes =
-                self::readSuffixes('man_vs_woman_suffixes');
-        return self::$_manVsWomanSuffixes;
+        if(is_null($this->_manVsWomanSuffixes))
+            $this->_manVsWomanSuffixes =
+                $this->readSuffixes('man_vs_woman_suffixes');
+        return $this->_manVsWomanSuffixes;
     }
 
-    protected static function getWomanFirstVsLastNameSuffixes()
+    protected function getWomanFirstVsLastNameSuffixes()
     {
-        if(is_null(self::$_womanFirstVsLastSuffixes))
-            self::$_womanFirstVsLastSuffixes =
-                self::readSuffixes('woman_first_vs_last_name_suffixes');
-        return self::$_womanFirstVsLastSuffixes;
+        if(is_null($this->_womanFirstVsLastSuffixes))
+            $this->_womanFirstVsLastSuffixes =
+                $this->readSuffixes('woman_first_vs_last_name_suffixes');
+        return $this->_womanFirstVsLastSuffixes;
     }
 
-    protected static function readSuffixes($file)
+    protected function readSuffixes($file)
     {
         $filename = VOKATIV_DATA_DIR . $file;
         if(!file_exists($filename))
