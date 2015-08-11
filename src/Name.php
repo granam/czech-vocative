@@ -22,7 +22,28 @@ class Name
         if(gettype($name) !== "string")
             throw new InvalidArgumentException('`$name` has to be string');
         $name = mb_strtolower($name);
-        return "";
+
+        if (is_null($isWoman)) {
+            $isWoman = !self::isMale($name);
+        }
+
+        if ($isWoman) {
+            if (is_null($isLastName)) {
+                list($match, $type) = self::getMatchingSuffix(
+                    $name,
+                    self::getWomanFirstVsLastNameSuffixes()
+                );
+
+                $isLastName = $type != 'l' ? false : true;
+            }
+
+            if ($isLastName) {
+                return self::vokativWomanLastName($name);
+            }
+            return self::vokativWomanFirstName($name);
+        }
+
+        return self::vokativMan($name);
     }
 
     /**
@@ -42,6 +63,32 @@ class Name
         );
 
         return $sex === "w" ? false : true ;
+    }
+
+    protected static function vokativMan($name)
+    {
+        list($match, $suffix) = self::getMatchingSuffix(
+            $name,
+            self::getManSuffixes()
+        );
+
+        if ($match) {
+            $name = mb_substr($name, 0, -1 * mb_strlen($match));
+        }
+
+        return $name . $suffix;
+    }
+
+    protected static function vokativWomanFirstName($name)
+    {
+        if(mb_substr($name, -1) === "a")
+            return mb_substr($name, 0, -1) . "o";
+        return $name;
+    }
+
+    protected static function vokativWomanLastName($name)
+    {
+        return $name;
     }
 
     protected static function getMatchingSuffix($name, $suffixes)
