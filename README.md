@@ -16,11 +16,11 @@ Použití
 
 ```
 <?php
-use Vokativ\Vokativ;
-Vokativ::vokativ('Petr');		// 'petře'
-Vokativ::vokativ('Novák');		// 'nováku'
-Vokativ::vokativ('Adriana');	// 'adriano'
-Vokativ::vokativ('Fialová');	// 'fialová'
+use Vokativ\Name;
+Name::vokativ('Petr');		// 'petře'
+Name::vokativ('Novák');		// 'nováku'
+Name::vokativ('Adriana');	// 'adriano'
+Name::vokativ('Fialová');	// 'fialová'
 ```
 
 Funkce **Vokativ($name, $isWoman = null, $isLastName = null)** bere jako první argument vlastní jméno v 1. pádu jednotného čísla a vrátí ho vyskloňované v 5. pádu.
@@ -39,9 +39,9 @@ Ve výchozím případě *null* je pohlaví detekováno automaticky.
 
 ```
 <?php
-Vokativ::vokativ('Michel');  		// 'micheli' - automaticky jako mužské
-Vokativ::vokativ('Michel', false);	// 'micheli'
-Vokativ::vokativ('Michel', true);	// 'michel'
+Name::vokativ('Michel');  		// 'micheli' - automaticky jako mužské
+Name::vokativ('Michel', false);	// 'micheli'
+Name::vokativ('Michel', true);	// 'michel'
 ```
 
 #### $isLastName
@@ -56,9 +56,9 @@ Hodnota tohoto parametru ovlivňuje pouze skloňování ženských jmen.
 
 ```
 <?php
-Vokativ::vokativ('Ivanova'); 				// 'ivanova' - automaticky příjmení
-Vokativ::vokativ('Ivanova', true, true);	// 'ivanova'
-Vokativ::vokativ('Ivanova', true, false);	// 'ivanovo'
+Name::vokativ('Ivanova'); 				// 'ivanova' - automaticky příjmení
+Name::vokativ('Ivanova', true, true);	// 'ivanova'
+Name::vokativ('Ivanova', true, false);	// 'ivanovo'
 ```
 
 Automatická detekce pohlaví
@@ -70,11 +70,11 @@ funkce funguje správně v 99.7% případů.
 
 ```
 <?php
-use Vokativ\Vokativ;
-Vokativ::isMale('Michal'); 		// true
-Vokativ::isMale('Novák'); 		// true
-Vokativ::isMale('Tereza'); 		// false
-Vokativ::isMale('Nováková'); 	// false
+use Vokativ\Name;
+Name::isMale('Michal'); 	// true
+Name::isMale('Novák'); 		// true
+Name::isMale('Tereza'); 	// false
+Name::isMale('Nováková'); 	// false
 ```
 
 Kudos

@@ -2,7 +2,7 @@
 
 namespace Vokativ;
 
-class Vokativ
+class Name
 {
     /**
      * Vrací jméno vyskloňované do 5. pádu
