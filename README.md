@@ -1,7 +1,7 @@
 Vokativ
 =======
 
-#### Oslovte své uživatele správně!
+* Oslovte své uživatele správně! *
 
 
 Instalace
