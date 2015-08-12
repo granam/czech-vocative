@@ -9,7 +9,9 @@
             "email": "petr@joachim.cz"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^5.5"
+    },
     "autoload": {
         "psr-4": {
             "Vokativ\\": "src/"
