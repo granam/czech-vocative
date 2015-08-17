@@ -5,7 +5,7 @@ use Vokativ\Name;
 use PHPUnit_Framework_TestCase;
 
 define(
-    "VOKATIV_TEST_DIR",
+    'VOKATIV_TEST_DIR',
     __DIR__ . DIRECTORY_SEPARATOR .'data' . DIRECTORY_SEPARATOR
 );
 
@@ -14,15 +14,16 @@ class TestName extends PHPUnit_Framework_TestCase
     protected $_v;
     protected function loadTests($name)
     {
-        $filename = VOKATIV_TEST_DIR . $name . ".txt";
+        $filename = VOKATIV_TEST_DIR . $name . '.txt';
 
         $f = fopen($filename, 'r');
         $tests = [];
 
         while ($line = rtrim(fgets($f))) {
             // skip empty lines
-            if (mb_strlen($line) > 0)
+            if (mb_strlen($line) > 0) {
                 $tests[] = explode(' ', $line, 2);
+            }
         }
 
         fclose($f);
