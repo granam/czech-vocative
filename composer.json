@@ -1,31 +1,25 @@
 {
-    "name": "bigit/vokativ",
-    "description": "Knihovna pro skloňování českých jmen do 5. pádu pro účely generování oslovení.",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Petr Joachim",
-            "email": "petr@joachim.cz"
-        }
-    ],
-    "require": {
-        "php": "^5.5"
+  "name": "granam/czech-vocative",
+  "description": "Inflect czech names and surnames.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Petr Joachim",
+      "email": "petr@joachim.cz"
     },
-    "autoload": {
-        "psr-4": {
-            "Vokativ\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Vokativ\\Test\\": "test/"
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^4.8"
-    },
-    "scripts": {
-        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php test"
+    {
+      "name": "Jaroslav Týc",
+      "email": "mail@jaroslavtyc.com"
     }
+  ],
+  "require": {
+    "php": "~5.4",
+    "bigit/vokativ": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8"
+  },
+  "minimal-stability": "dev",
+  "prefer-stable": true
 }

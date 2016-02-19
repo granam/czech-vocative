@@ -1,3 +1,9 @@
+#Credits
+ - All credits belongs to the original author Petr Joachim.
+ - This is just port to support PHP 5.4 (and to test it by Travis CI).
+ 
+ ---
+
 Vokativ
 =======
 
@@ -7,9 +13,9 @@ Vokativ
 Instalace
 =========
 
-    $ composer require bigit/vokativ
+    $ composer require granam/czech-vocative
 
-Podporované verze PHP 5.6+
+Podporované verze PHP 5.4+
 
 Použití
 =======
