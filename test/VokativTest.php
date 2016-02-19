@@ -5,13 +5,15 @@ use Vokativ\Name;
 use PHPUnit_Framework_TestCase;
 
 define(
-    "VOKATIV_TEST_DIR",
-    __DIR__ . DIRECTORY_SEPARATOR .'data' . DIRECTORY_SEPARATOR
+"VOKATIV_TEST_DIR",
+    __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR
 );
 
 class TestName extends PHPUnit_Framework_TestCase
 {
+    /** @var Name */
     protected $_v;
+
     protected function loadTests($name)
     {
         $filename = VOKATIV_TEST_DIR . $name . ".txt";
@@ -26,6 +28,7 @@ class TestName extends PHPUnit_Framework_TestCase
         }
 
         fclose($f);
+
         return $tests;
     }
 
@@ -45,9 +48,8 @@ class TestName extends PHPUnit_Framework_TestCase
 
     public function testManFirstNames()
     {
-        foreach (
-            $this->loadTests('man_first_name_tests') as list($name, $vok)) {
-
+        foreach ($this->loadTests('man_first_name_tests') as $values) {
+            list($name, $vok) = $values;
             $this->assertEquals($vok, $this->_v->vokativ($name, false, false));
             $this->assertEquals($vok, $this->_v->vokativ($name, null, false));
             $this->assertEquals($vok, $this->_v->vokativ($name, false));
@@ -58,9 +60,8 @@ class TestName extends PHPUnit_Framework_TestCase
 
     public function testManLastNames()
     {
-        foreach (
-            $this->loadTests('man_last_name_tests') as list($name, $vok)) {
-
+        foreach ($this->loadTests('man_last_name_tests') as $values) {
+            list($name, $vok) = $values;
             $this->assertEquals($vok, $this->_v->vokativ($name, false, true));
             $this->assertEquals($vok, $this->_v->vokativ($name, null, true));
             $this->assertEquals($vok, $this->_v->vokativ($name, false));
@@ -71,9 +72,8 @@ class TestName extends PHPUnit_Framework_TestCase
 
     public function testWomanFirstNames()
     {
-        foreach (
-            $this->loadTests('woman_first_name_tests') as list($name, $vok)) {
-
+        foreach ($this->loadTests('woman_first_name_tests') as $values) {
+            list($name, $vok) = $values;
             $this->assertEquals($vok, $this->_v->vokativ($name, true, false));
             $this->assertEquals($vok, $this->_v->vokativ($name, null, false));
             $this->assertEquals($vok, $this->_v->vokativ($name, true));
@@ -84,9 +84,8 @@ class TestName extends PHPUnit_Framework_TestCase
 
     public function testWomanLastNames()
     {
-        foreach (
-            $this->loadTests('woman_last_name_tests') as list($name, $vok)) {
-
+        foreach ($this->loadTests('woman_last_name_tests') as $values) {
+            list($name, $vok) = $values;
             $this->assertEquals($vok, $this->_v->vokativ($name, true, true));
             $this->assertEquals($vok, $this->_v->vokativ($name, null, true));
             $this->assertEquals($vok, $this->_v->vokativ($name, true));
