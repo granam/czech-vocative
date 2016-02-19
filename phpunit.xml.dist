@@ -12,15 +12,12 @@
         >
     <testsuites>
         <testsuite name="all">
-            <directory>./vendor/bigit/vokativ</directory>
+            <directory>./test</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
-            <directory>./vendor/bigit/vokativ</directory>
-            <exclude>
-                <directory>./vendor/bigit/vokativ/test</directory>
-            </exclude>
+            <directory>./src</directory>
         </whitelist>
     </filter>
 </phpunit>

@@ -4,49 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c02f03e17377bc72ce157188e1d89d1a",
-    "content-hash": "11634f244c4ae8bc4edec275b7944e7a",
-    "packages": [
-        {
-            "name": "bigit/vokativ",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://bitbucket.org/bigit/vokativ.git",
-                "reference": "59cc3ab22fb1399a7c0150c7bf15d838282cc537"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://bitbucket.org/bigit/vokativ/get/59cc3ab22fb1399a7c0150c7bf15d838282cc537.zip",
-                "reference": "59cc3ab22fb1399a7c0150c7bf15d838282cc537",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.5"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Vokativ\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Petr Joachim",
-                    "email": "petr@joachim.cz"
-                }
-            ],
-            "description": "Knihovna pro skloňování českých jmen do 5. pádu pro účely generování oslovení.",
-            "time": "2015-08-18 08:31:51"
-        }
-    ],
+    "hash": "f8a733deb6c44aa7efe71e1023f2068e",
+    "content-hash": "208a1ff6a588f5947981d303f946d77b",
+    "packages": [],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
@@ -1004,10 +964,8 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "bigit/vokativ": 20
-    },
-    "prefer-stable": true,
+    "stability-flags": [],
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "~5.4"

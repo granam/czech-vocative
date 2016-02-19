@@ -13,13 +13,15 @@
       "email": "mail@jaroslavtyc.com"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "Vokativ\\": "src/"
+    }
+  },
   "require": {
-    "php": "~5.4",
-    "bigit/vokativ": "dev-master"
+    "php": "~5.4"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8"
-  },
-  "minimal-stability": "dev",
-  "prefer-stable": true
+  }
 }
