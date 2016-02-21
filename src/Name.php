@@ -1,8 +1,5 @@
 <?php
-
 namespace Vocative;
-
-use \InvalidArgumentException;
 
 define(
 'VOCATIVE_DATA_DIR',
@@ -55,7 +52,7 @@ class Name
     public function isMale($name)
     {
         if (gettype($name) !== "string")
-            throw new InvalidArgumentException('`$name` has to be string');
+            throw new \InvalidArgumentException('`$name` has to be string');
         $name = mb_strtolower($name, 'UTF-8');
 
         list($match, $sex) = $this->getMatchingSuffix(
