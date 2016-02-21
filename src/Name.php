@@ -1,11 +1,11 @@
 <?php
 
-namespace Vokativ;
+namespace Vocative;
 
 use \InvalidArgumentException;
 
 define(
-'VOKATIV_DATA_DIR',
+'VOCATIVE_DATA_DIR',
     dirname(__FILE__) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR
 );
 
@@ -18,7 +18,7 @@ class Name
      * @param boolean|null $isLastName
      * @return string Jméno v 5. pádu
      */
-    public function vokativ($name, $isWoman = null, $isLastName = null)
+    public function vocative($name, $isWoman = null, $isLastName = null)
     {
         $name = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
         $key = mb_strtolower($name, 'UTF-8');
@@ -38,13 +38,13 @@ class Name
             }
 
             if ($isLastName) {
-                return $this->vokativWomanLastName($name);
+                return $this->vocativeWomanLastName($name);
             }
 
-            return $this->vokativWomanFirstName($name);
+            return $this->vocativeWomanFirstName($name);
         }
 
-        return $this->vokativMan($name, $key);
+        return $this->vocativeMan($name, $key);
     }
 
     /**
@@ -66,7 +66,7 @@ class Name
         return $sex === "w" ? false : true;
     }
 
-    protected function vokativMan($name, $key)
+    protected function vocativeMan($name, $key)
     {
         list($match, $suffix) = $this->getMatchingSuffix(
             $key,
@@ -81,7 +81,7 @@ class Name
         return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
     }
 
-    protected function vokativWomanFirstName($name)
+    protected function vocativeWomanFirstName($name)
     {
         if (mb_substr($name, -1) === "a")
             return mb_substr($name, 0, -1) . "o";
@@ -89,7 +89,7 @@ class Name
         return $name;
     }
 
-    protected function vokativWomanLastName($name)
+    protected function vocativeWomanLastName($name)
     {
         return $name;
     }
@@ -139,7 +139,7 @@ class Name
 
     protected function readSuffixes($file)
     {
-        $filename = VOKATIV_DATA_DIR . $file;
+        $filename = VOCATIVE_DATA_DIR . $file;
         if (!file_exists($filename))
             throw new \RuntimeException('Data file ' . $filename . 'not found');
 
