@@ -1,16 +1,16 @@
 <?php
-namespace Vocative\Test;
+namespace CzechVocative\Test;
 
-use Vocative\Name;
+use CzechVocative\CzechName;
 
 define(
 "VOCATIVE_TEST_DIR",
     __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR
 );
 
-class TestName extends \PHPUnit_Framework_TestCase
+class CzechNameTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var Name */
+    /** @var CzechName */
     protected $_v;
 
     protected function loadTests($name)
@@ -33,7 +33,7 @@ class TestName extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_v = new Name();
+        $this->_v = new CzechName();
     }
 
     public function testBasics()

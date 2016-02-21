@@ -15,7 +15,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Vocative\\": "src/"
+      "CzechVocative\\": "src/"
     }
   },
   "require": {
