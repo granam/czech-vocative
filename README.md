@@ -24,14 +24,13 @@ Použití
 <?php
 use Vokativ\Name;
 $name = new Name();
-$name->vokativ('Petr');		// 'petře'
-$name->vokativ('Novák');	// 'nováku'
-$name->vokativ('Adriana');	// 'adriano'
-$name->vokativ('Fialová');	// 'fialová'
+$name->vokativ('Petr');		// 'Petře'
+$name->vokativ('Novák');	// 'Nováku'
+$name->vokativ('Adriana');	// 'Adriano'
+$name->vokativ('Fialová');	// 'Fialová'
 ```
 
 Funkce **Vokativ($name, $isWoman = null, $isLastName = null)** bere jako první argument vlastní jméno v 1. pádu jednotného čísla a vrátí ho vyskloňované v 5. pádu.
-Návratová hodnota funkce je vždy řetězec s malými písmeny typu *string*.
 Upozorňujeme, že funkce nemusí fungovat správně pro jména cizího původu.
 
 ### Další volitelné argumenty jsou:
@@ -46,9 +45,9 @@ Ve výchozím případě *null* je pohlaví detekováno automaticky.
 
 ```
 <?php
-$name->vokativ('Michel');  			// 'micheli' - automaticky jako mužské
-$name->vokativ('Michel', false);	// 'micheli'
-$name->vokativ('Michel', true);		// 'michel'
+$name->vokativ('Michel');  			// 'Micheli' - automaticky jako mužské
+$name->vokativ('Michel', false);	// 'Micheli'
+$name->vokativ('Michel', true);		// 'Michel'
 ```
 
 #### $isLastName
@@ -63,9 +62,9 @@ Hodnota tohoto parametru ovlivňuje pouze skloňování ženských jmen.
 
 ```
 <?php
-$name->vokativ('Ivanova'); 				// 'ivanova' - automaticky příjmení
-$name->vokativ('Ivanova', true, true);	// 'ivanova'
-$name->vokativ('Ivanova', true, false);	// 'ivanovo'
+$name->vokativ('Ivanova'); 				// 'Ivanova' - automaticky příjmení
+$name->vokativ('Ivanova', true, true);	// 'Ivanova'
+$name->vokativ('Ivanova', true, false);	// 'Ivanovo'
 ```
 
 Automatická detekce pohlaví
