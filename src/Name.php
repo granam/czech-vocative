@@ -3,8 +3,9 @@
 namespace Vokativ;
 
 use \InvalidArgumentException;
+
 define(
-    'VOKATIV_DATA_DIR',
+'VOKATIV_DATA_DIR',
     dirname(__FILE__) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR
 );
 
@@ -19,18 +20,17 @@ class Name
      */
     public function vokativ($name, $isWoman = null, $isLastName = null)
     {
-        if(gettype($name) !== "string")
-            throw new InvalidArgumentException('`$name` has to be string');
-        $name = mb_strtolower($name, 'UTF-8');
+        $name = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
+        $key = mb_strtolower($name, 'UTF-8');
 
         if (is_null($isWoman)) {
-            $isWoman = !$this->isMale($name);
+            $isWoman = !$this->isMale($key);
         }
 
         if ($isWoman) {
             if (is_null($isLastName)) {
                 list($match, $type) = $this->getMatchingSuffix(
-                    $name,
+                    $key,
                     $this->getWomanFirstVsLastNameSuffixes()
                 );
 
@@ -40,10 +40,11 @@ class Name
             if ($isLastName) {
                 return $this->vokativWomanLastName($name);
             }
+
             return $this->vokativWomanFirstName($name);
         }
 
-        return $this->vokativMan($name);
+        return $this->vokativMan($name, $key);
     }
 
     /**
@@ -53,7 +54,7 @@ class Name
      */
     public function isMale($name)
     {
-        if(gettype($name) !== "string")
+        if (gettype($name) !== "string")
             throw new InvalidArgumentException('`$name` has to be string');
         $name = mb_strtolower($name, 'UTF-8');
 
@@ -62,27 +63,29 @@ class Name
             $this->getManVsWomanSuffixes()
         );
 
-        return $sex === "w" ? false : true ;
+        return $sex === "w" ? false : true;
     }
 
-    protected function vokativMan($name)
+    protected function vokativMan($name, $key)
     {
         list($match, $suffix) = $this->getMatchingSuffix(
-            $name,
+            $key,
             $this->getManSuffixes()
         );
 
         if ($match) {
             $name = mb_substr($name, 0, -1 * mb_strlen($match));
         }
+        $name = $name . $suffix;
 
-        return $name . $suffix;
+        return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
     }
 
     protected function vokativWomanFirstName($name)
     {
-        if(mb_substr($name, -1) === "a")
+        if (mb_substr($name, -1) === "a")
             return mb_substr($name, 0, -1) . "o";
+
         return $name;
     }
 
@@ -100,6 +103,7 @@ class Name
                 return [$suffix, $suffixes[$suffix]];
             }
         }
+
         return ['', $suffixes['']];
     }
 
@@ -109,32 +113,36 @@ class Name
 
     protected function getManSuffixes()
     {
-        if(is_null($this->_manSuffixes))
+        if (is_null($this->_manSuffixes))
             $this->_manSuffixes = $this->readSuffixes('man_suffixes');
+
         return $this->_manSuffixes;
     }
 
     protected function getManVsWomanSuffixes()
     {
-        if(is_null($this->_manVsWomanSuffixes))
+        if (is_null($this->_manVsWomanSuffixes))
             $this->_manVsWomanSuffixes =
                 $this->readSuffixes('man_vs_woman_suffixes');
+
         return $this->_manVsWomanSuffixes;
     }
 
     protected function getWomanFirstVsLastNameSuffixes()
     {
-        if(is_null($this->_womanFirstVsLastSuffixes))
+        if (is_null($this->_womanFirstVsLastSuffixes))
             $this->_womanFirstVsLastSuffixes =
                 $this->readSuffixes('woman_first_vs_last_name_suffixes');
+
         return $this->_womanFirstVsLastSuffixes;
     }
 
     protected function readSuffixes($file)
     {
         $filename = VOKATIV_DATA_DIR . $file;
-        if(!file_exists($filename))
-            throw new RuntimeException('Data file ' . $filename . 'not found');
+        if (!file_exists($filename))
+            throw new \RuntimeException('Data file ' . $filename . 'not found');
+
         return unserialize(file_get_contents($filename));
     }
 }

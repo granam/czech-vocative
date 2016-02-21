@@ -40,9 +40,9 @@ class TestName extends PHPUnit_Framework_TestCase
     public function testBasics()
     {
         $this->assertTrue($this->_v->isMale('Tom'));
-        $this->assertEquals('tome', $this->_v->vokativ('Tom'));
-        $this->assertEquals('tome', $this->_v->vokativ('toM'));
-        $this->assertEquals('tome', $this->_v->vokativ('ToM'));
+        $this->assertEquals('Tome', $this->_v->vokativ('Tom'));
+        $this->assertEquals('Tome', $this->_v->vokativ('toM'));
+        $this->assertEquals('Tome', $this->_v->vokativ('ToM'));
         $this->assertInternalType('string', $this->_v->vokativ('Tom'));
     }
 
@@ -92,14 +92,5 @@ class TestName extends PHPUnit_Framework_TestCase
             $this->assertEquals($vok, $this->_v->vokativ($name));
             $this->assertFalse($this->_v->isMale($name));
         }
-    }
-
-    public function testCornerCases()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->_v->vokativ(null);
-
-        $this->setExpectedException('InvalidArgumentException');
-        $this->_v->vokativ(10);
     }
 }
