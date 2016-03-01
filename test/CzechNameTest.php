@@ -92,4 +92,30 @@ class CzechNameTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($this->_v->isMale($name));
         }
     }
+
+    /**
+     * @test
+     */
+    public function I_got_vocalized_non_human_names()
+    {
+        $this->assertSame('Androide', $this->_v->vocative('android'));
+        $this->assertSame('Blackberry', $this->_v->vocative('blackberry'));
+        $this->assertSame('Apple', $this->_v->vocative('apple'));
+    }
+
+    /**
+     * @test
+     */
+    public function I_got_untouched_name_with_trailing_non_letter()
+    {
+        $this->assertSame('nokia?!', $this->_v->vocative('nokia?!'));
+    }
+
+    /**
+     * @test
+     */
+    public function I_got_vocalized_name_wrapped_by_white_spaces()
+    {
+        $this->assertSame('Siemensi', $this->_v->vocative("\n\t  siemens \n\t   "));
+    }
 }

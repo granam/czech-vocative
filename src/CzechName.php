@@ -17,6 +17,10 @@ class CzechName
      */
     public function vocative($name, $isWoman = null, $isLastName = null)
     {
+        $name = trim($name);
+        if (preg_match('~[^[:alpha:]]$~u', $name)) {
+            return $name; // name with trailing non-letter is left untouched
+        }
         $name = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
         $key = mb_strtolower($name, 'UTF-8');
 
