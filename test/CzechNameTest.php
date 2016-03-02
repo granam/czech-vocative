@@ -106,6 +106,17 @@ class CzechNameTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function I_got_vocalized_familiar_non_human_names()
+    {
+        $this->assertSame('Androiďáku', $this->_v->vocative('androiďák'));
+        $this->assertSame('Androiďačko', $this->_v->vocative('androiďačka'));
+        $this->assertSame('Fitnessáku', $this->_v->vocative('fitnessák'));
+        $this->assertSame('Fitnessačko', $this->_v->vocative('fitnessačka'));
+    }
+
+    /**
+     * @test
+     */
     public function I_got_untouched_name_with_trailing_non_letter()
     {
         $this->assertSame('nokia?!', $this->_v->vocative('nokia?!'));
