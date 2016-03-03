@@ -1,13 +1,10 @@
 <?php
 namespace CzechVocative;
 
-define(
-'VOCATIVE_DATA_DIR',
-    dirname(__FILE__) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR
-);
-
 class CzechName
 {
+    const VOCATIVE_DATA_DIR = __DIR__ . DIRECTORY_SEPARATOR . 'data';
+
     /**
      * Vrací jméno vyskloňované do 5. pádu
      * @param string $name Jméno v původním tvaru
@@ -140,7 +137,7 @@ class CzechName
 
     protected function readSuffixes($file)
     {
-        $filename = VOCATIVE_DATA_DIR . $file;
+        $filename = self::VOCATIVE_DATA_DIR . DIRECTORY_SEPARATOR . $file;
         if (!file_exists($filename))
             throw new \RuntimeException('Data file ' . $filename . 'not found');
 

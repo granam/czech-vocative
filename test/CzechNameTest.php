@@ -3,19 +3,16 @@ namespace CzechVocative\Test;
 
 use CzechVocative\CzechName;
 
-define(
-"VOCATIVE_TEST_DIR",
-    __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR
-);
-
 class CzechNameTest extends \PHPUnit_Framework_TestCase
 {
+    const VOCATIVE_TEST_DIR = __DIR__ . DIRECTORY_SEPARATOR . 'data';
+
     /** @var CzechName */
     protected $_v;
 
     protected function loadTests($name)
     {
-        $filename = VOCATIVE_TEST_DIR . $name . ".txt";
+        $filename = self::VOCATIVE_TEST_DIR . DIRECTORY_SEPARATOR . $name . ".txt";
 
         $f = fopen($filename, 'r');
         $tests = [];
@@ -31,7 +28,7 @@ class CzechNameTest extends \PHPUnit_Framework_TestCase
         return $tests;
     }
 
-    public function setUp()
+    protected function setUp()
     {
         $this->_v = new CzechName();
     }
