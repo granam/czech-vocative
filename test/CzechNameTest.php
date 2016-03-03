@@ -5,14 +5,12 @@ use CzechVocative\CzechName;
 
 class CzechNameTest extends \PHPUnit_Framework_TestCase
 {
-    const VOCATIVE_TEST_DIR = __DIR__ . DIRECTORY_SEPARATOR . 'data';
-
     /** @var CzechName */
     protected $_v;
 
     protected function loadTests($name)
     {
-        $filename = self::VOCATIVE_TEST_DIR . DIRECTORY_SEPARATOR . $name . ".txt";
+        $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $name . ".txt";
 
         $f = fopen($filename, 'r');
         $tests = [];

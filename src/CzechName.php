@@ -3,8 +3,6 @@ namespace CzechVocative;
 
 class CzechName
 {
-    const VOCATIVE_DATA_DIR = __DIR__ . DIRECTORY_SEPARATOR . 'data';
-
     /**
      * Vrací jméno vyskloňované do 5. pádu
      * @param string $name Jméno v původním tvaru
@@ -137,7 +135,7 @@ class CzechName
 
     protected function readSuffixes($file)
     {
-        $filename = self::VOCATIVE_DATA_DIR . DIRECTORY_SEPARATOR . $file;
+        $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $file;
         if (!file_exists($filename))
             throw new \RuntimeException('Data file ' . $filename . 'not found');
 
