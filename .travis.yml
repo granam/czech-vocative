@@ -6,7 +6,7 @@ php:
   - hhvm
 
 before_script:
-  - if [[ $TRAVIS_PHP_VERSION =~ ^php ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $TRAVIS_PHP_VERSION =~ ^[0-9]+[.][0-9]+$ ]]; then phpenv config-rm xdebug.ini; fi
   - composer self-update
   - composer update --no-interaction --prefer-dist
 
