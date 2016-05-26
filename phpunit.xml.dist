@@ -1,7 +1,7 @@
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
-        bootstrap="./_tests_bootstrap.php"
+        bootstrap="./Granam/Tests/tests_bootstrap.php"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
@@ -12,12 +12,12 @@
         >
     <testsuites>
         <testsuite name="all">
-            <directory>./test</directory>
+            <directory>./Granam</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
-            <directory>./src</directory>
+            <directory>./Granam/CzechVocative/src</directory>
         </whitelist>
     </filter>
 </phpunit>

@@ -1,5 +1,5 @@
 <?php
-namespace CzechVocative;
+namespace Granam\CzechVocative;
 
 class CzechName
 {
@@ -19,18 +19,18 @@ class CzechName
         $name = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
         $key = mb_strtolower($name, 'UTF-8');
 
-        if (is_null($isWoman)) {
+        if ($isWoman === null) {
             $isWoman = !$this->isMale($key);
         }
 
         if ($isWoman) {
-            if (is_null($isLastName)) {
-                list($match, $type) = $this->getMatchingSuffix(
+            if ($isLastName === null) {
+                list(, $type) = $this->getMatchingSuffix(
                     $key,
                     $this->getWomanFirstVsLastNameSuffixes()
                 );
 
-                $isLastName = $type != 'l' ? false : true;
+                $isLastName = $type === 'l';
             }
 
             if ($isLastName) {
@@ -46,23 +46,21 @@ class CzechName
     /**
      * Na základě jména nebo přijmení rozhodne o pohlaví
      * @param string $name Jméno v prvním pádu
-     * @return boolean Rozhodne, jeslti je jméno mužské
+     * @return boolean Rozhodne, jestli je jméno mužské
      */
     public function isMale($name)
     {
-        if (gettype($name) !== "string")
-            throw new \InvalidArgumentException('`$name` has to be string');
         $name = mb_strtolower($name, 'UTF-8');
 
-        list($match, $sex) = $this->getMatchingSuffix(
+        list(, $sex) = $this->getMatchingSuffix(
             $name,
             $this->getManVsWomanSuffixes()
         );
 
-        return $sex === "w" ? false : true;
+        return $sex !== 'w';
     }
 
-    protected function vocativeMan($name, $key)
+    private function vocativeMan($name, $key)
     {
         list($match, $suffix) = $this->getMatchingSuffix(
             $key,
@@ -72,25 +70,26 @@ class CzechName
         if ($match) {
             $name = mb_substr($name, 0, -1 * mb_strlen($match));
         }
-        $name = $name . $suffix;
+        $name .= $suffix;
 
         return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
     }
 
-    protected function vocativeWomanFirstName($name)
+    private function vocativeWomanFirstName($name)
     {
-        if (mb_substr($name, -1) === "a")
-            return mb_substr($name, 0, -1) . "o";
+        if (mb_substr($name, -1) === 'a') {
+            return mb_substr($name, 0, -1) . 'o';
+        }
 
         return $name;
     }
 
-    protected function vocativeWomanLastName($name)
+    private function vocativeWomanLastName($name)
     {
         return $name;
     }
 
-    protected function getMatchingSuffix($name, $suffixes)
+    private function getMatchingSuffix($name, $suffixes)
     {
         // it is important(!) to try suffixes from longest to shortest
         foreach (range(mb_strlen($name), 1) as $length) {
@@ -103,42 +102,42 @@ class CzechName
         return ['', $suffixes['']];
     }
 
-    protected $_manSuffixes = null;
-    protected $_manVsWomanSuffixes = null;
-    protected $_womanFirstVsLastSuffixes = null;
+    private $_manSuffixes;
+    private $_manVsWomanSuffixes;
+    private $_womanFirstVsLastSuffixes;
 
-    protected function getManSuffixes()
+    private function getManSuffixes()
     {
-        if (is_null($this->_manSuffixes))
+        if ($this->_manSuffixes === null) {
             $this->_manSuffixes = $this->readSuffixes('man_suffixes');
+        }
 
         return $this->_manSuffixes;
     }
 
-    protected function getManVsWomanSuffixes()
+    private function readSuffixes($file)
     {
-        if (is_null($this->_manVsWomanSuffixes))
-            $this->_manVsWomanSuffixes =
-                $this->readSuffixes('man_vs_woman_suffixes');
+        $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $file;
+
+        return unserialize(file_get_contents($filename));
+    }
+
+    private function getManVsWomanSuffixes()
+    {
+        if ($this->_manVsWomanSuffixes === null) {
+            $this->_manVsWomanSuffixes = $this->readSuffixes('man_vs_woman_suffixes');
+        }
 
         return $this->_manVsWomanSuffixes;
     }
 
-    protected function getWomanFirstVsLastNameSuffixes()
+    private function getWomanFirstVsLastNameSuffixes()
     {
-        if (is_null($this->_womanFirstVsLastSuffixes))
-            $this->_womanFirstVsLastSuffixes =
-                $this->readSuffixes('woman_first_vs_last_name_suffixes');
+        if ($this->_womanFirstVsLastSuffixes === null) {
+            $this->_womanFirstVsLastSuffixes = $this->readSuffixes('woman_first_vs_last_name_suffixes');
+        }
 
         return $this->_womanFirstVsLastSuffixes;
     }
 
-    protected function readSuffixes($file)
-    {
-        $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $file;
-        if (!file_exists($filename))
-            throw new \RuntimeException('Data file ' . $filename . 'not found');
-
-        return unserialize(file_get_contents($filename));
-    }
 }
