@@ -13,5 +13,5 @@ ratings:
   paths:
   - "**.php"
 exclude_paths:
-- "DrdPlus/Tests/"
+- "Granam/Tests/"
 - "vendor/"
