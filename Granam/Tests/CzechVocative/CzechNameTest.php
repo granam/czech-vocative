@@ -38,7 +38,7 @@ class CzechNameTest extends \PHPUnit_Framework_TestCase
     {
         $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $name . '.txt';
 
-        $f = fopen($filename, 'r');
+        $f = fopen($filename, 'rb');
         $tests = [];
 
         while ($line = rtrim(fgets($f))) {
