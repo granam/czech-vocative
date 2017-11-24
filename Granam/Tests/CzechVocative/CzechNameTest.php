@@ -2,8 +2,9 @@
 namespace CzechVocative\Tests;
 
 use Granam\CzechVocative\CzechName;
+use PHPUnit\Framework\TestCase;
 
-class CzechNameTest extends \PHPUnit_Framework_TestCase
+class CzechNameTest extends TestCase
 {
     /** @var CzechName */
     private $_v;
@@ -24,12 +25,11 @@ class CzechNameTest extends \PHPUnit_Framework_TestCase
 
     public function testManFirstNames()
     {
-        foreach ($this->loadTests('man_first_name_tests') as $values) {
-            list($name, $vok) = $values;
-            self::assertEquals($vok, $this->_v->vocative($name, false, false));
-            self::assertEquals($vok, $this->_v->vocative($name, null, false));
-            self::assertEquals($vok, $this->_v->vocative($name, false));
-            self::assertEquals($vok, $this->_v->vocative($name));
+        foreach ($this->loadTests('man_first_name_tests') as list($name, $vocative)) {
+            self::assertEquals($vocative, $this->_v->vocative($name, false, false));
+            self::assertEquals($vocative, $this->_v->vocative($name, null, false));
+            self::assertEquals($vocative, $this->_v->vocative($name, false));
+            self::assertEquals($vocative, $this->_v->vocative($name));
             self::assertTrue($this->_v->isMale($name));
         }
     }
@@ -38,53 +38,50 @@ class CzechNameTest extends \PHPUnit_Framework_TestCase
     {
         $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $name . '.txt';
 
-        $f = fopen($filename, 'rb');
+        $f = \fopen($filename, 'rb');
         $tests = [];
 
-        while ($line = rtrim(fgets($f))) {
+        while ($line = \rtrim(fgets($f))) {
             // skip empty lines
-            if (mb_strlen($line) > 0) {
-                $tests[] = explode(' ', $line, 2);
+            if (\mb_strlen($line) > 0) {
+                $tests[] = \explode(' ', $line, 2);
             }
         }
 
-        fclose($f);
+        \fclose($f);
 
         return $tests;
     }
 
     public function testManLastNames()
     {
-        foreach ($this->loadTests('man_last_name_tests') as $values) {
-            list($name, $vok) = $values;
-            self::assertEquals($vok, $this->_v->vocative($name, false, true));
-            self::assertEquals($vok, $this->_v->vocative($name, null, true));
-            self::assertEquals($vok, $this->_v->vocative($name, false));
-            self::assertEquals($vok, $this->_v->vocative($name));
+        foreach ($this->loadTests('man_last_name_tests') as list($name, $vocative)) {
+            self::assertEquals($vocative, $this->_v->vocative($name, false, true));
+            self::assertEquals($vocative, $this->_v->vocative($name, null, true));
+            self::assertEquals($vocative, $this->_v->vocative($name, false));
+            self::assertEquals($vocative, $this->_v->vocative($name));
             self::assertTrue($this->_v->isMale($name));
         }
     }
 
     public function testWomanFirstNames()
     {
-        foreach ($this->loadTests('woman_first_name_tests') as $values) {
-            list($name, $vok) = $values;
-            self::assertEquals($vok, $this->_v->vocative($name, true, false));
-            self::assertEquals($vok, $this->_v->vocative($name, null, false));
-            self::assertEquals($vok, $this->_v->vocative($name, true));
-            self::assertEquals($vok, $this->_v->vocative($name));
+        foreach ($this->loadTests('woman_first_name_tests') as list($name, $vocative)) {
+            self::assertEquals($vocative, $this->_v->vocative($name, true, false));
+            self::assertEquals($vocative, $this->_v->vocative($name, null, false));
+            self::assertEquals($vocative, $this->_v->vocative($name, true));
+            self::assertEquals($vocative, $this->_v->vocative($name));
             self::assertFalse($this->_v->isMale($name));
         }
     }
 
     public function testWomanLastNames()
     {
-        foreach ($this->loadTests('woman_last_name_tests') as $values) {
-            list($name, $vok) = $values;
-            self::assertEquals($vok, $this->_v->vocative($name, true, true));
-            self::assertEquals($vok, $this->_v->vocative($name, null, true));
-            self::assertEquals($vok, $this->_v->vocative($name, true));
-            self::assertEquals($vok, $this->_v->vocative($name));
+        foreach ($this->loadTests('woman_last_name_tests') as list($name, $vocative)) {
+            self::assertEquals($vocative, $this->_v->vocative($name, true, true));
+            self::assertEquals($vocative, $this->_v->vocative($name, null, true));
+            self::assertEquals($vocative, $this->_v->vocative($name, true));
+            self::assertEquals($vocative, $this->_v->vocative($name));
             self::assertFalse($this->_v->isMale($name));
         }
     }

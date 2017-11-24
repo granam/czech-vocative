@@ -10,7 +10,7 @@ class CzechName
      * @param boolean|null $isLastName
      * @return string Jméno v 5. pádu
      */
-    public function vocative($name, $isWoman = null, $isLastName = null)
+    public function vocative(string $name, bool $isWoman = null, bool $isLastName = null): string
     {
         $name = trim($name);
         if (preg_match('~[^[:alpha:]]$~u', $name)) {
@@ -48,7 +48,7 @@ class CzechName
      * @param string $name Jméno v prvním pádu
      * @return boolean Rozhodne, jestli je jméno mužské
      */
-    public function isMale($name)
+    public function isMale(string $name): bool
     {
         $name = mb_strtolower($name, 'UTF-8');
 
@@ -60,7 +60,7 @@ class CzechName
         return $sex !== 'w';
     }
 
-    private function vocativeMan($name, $key)
+    private function vocativeMan(string $name, string $key): string
     {
         list($match, $suffix) = $this->getMatchingSuffix(
             $key,
@@ -75,7 +75,7 @@ class CzechName
         return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
     }
 
-    private function vocativeWomanFirstName($name)
+    private function vocativeWomanFirstName(string $name): string
     {
         if (mb_substr($name, -1) === 'a') {
             return mb_substr($name, 0, -1) . 'o';
@@ -84,12 +84,17 @@ class CzechName
         return $name;
     }
 
-    private function vocativeWomanLastName($name)
+    private function vocativeWomanLastName(string $name): string
     {
         return $name;
     }
 
-    private function getMatchingSuffix($name, $suffixes)
+    /**
+     * @param string $name
+     * @param array $suffixes
+     * @return array
+     */
+    private function getMatchingSuffix(string $name, array $suffixes): array
     {
         // it is important(!) to try suffixes from longest to shortest
         foreach (range(mb_strlen($name), 1) as $length) {
@@ -106,7 +111,7 @@ class CzechName
     private $_manVsWomanSuffixes;
     private $_womanFirstVsLastSuffixes;
 
-    private function getManSuffixes()
+    private function getManSuffixes(): array
     {
         if ($this->_manSuffixes === null) {
             $this->_manSuffixes = $this->readSuffixes('man_suffixes');
@@ -115,14 +120,14 @@ class CzechName
         return $this->_manSuffixes;
     }
 
-    private function readSuffixes($file)
+    private function readSuffixes(string $file): array
     {
         $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $file;
 
-        return unserialize(file_get_contents($filename));
+        return \unserialize(\file_get_contents($filename), ['allowed_classes' => false]);
     }
 
-    private function getManVsWomanSuffixes()
+    private function getManVsWomanSuffixes(): array
     {
         if ($this->_manVsWomanSuffixes === null) {
             $this->_manVsWomanSuffixes = $this->readSuffixes('man_vs_woman_suffixes');
@@ -131,7 +136,7 @@ class CzechName
         return $this->_manVsWomanSuffixes;
     }
 
-    private function getWomanFirstVsLastNameSuffixes()
+    private function getWomanFirstVsLastNameSuffixes(): array
     {
         if ($this->_womanFirstVsLastSuffixes === null) {
             $this->_womanFirstVsLastSuffixes = $this->readSuffixes('woman_first_vs_last_name_suffixes');
