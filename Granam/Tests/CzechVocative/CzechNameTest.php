@@ -1,4 +1,6 @@
 <?php
+declare(strict_types = 1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace CzechVocative\Tests;
 
 use Granam\CzechVocative\CzechName;
@@ -41,13 +43,13 @@ class CzechNameTest extends TestCase
         $f = \fopen($filename, 'rb');
         $tests = [];
 
-        while ($line = \rtrim(fgets($f))) {
+        while (($line = fgets($f)) !== false) {
+            $line = \rtrim($line);
             // skip empty lines
             if (\mb_strlen($line) > 0) {
                 $tests[] = \explode(' ', $line, 2);
             }
         }
-
         \fclose($f);
 
         return $tests;
