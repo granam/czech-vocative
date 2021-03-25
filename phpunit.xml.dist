@@ -1,23 +1,17 @@
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
-        bootstrap="./Granam/Tests/tests_bootstrap.php"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
-        stopOnFailure="false"
-        processIsolation="false"
-        backupGlobals="false"
-        colors="true"
-        >
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         bootstrap="./tests/tests_bootstrap.php" convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true" convertWarningsToExceptions="true" stopOnFailure="false"
+         processIsolation="false" backupGlobals="false" colors="true">
+    <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
+        <include>
+            <directory>./src</directory>
+        </include>
+    </coverage>
     <testsuites>
         <testsuite name="all">
-            <directory>./Granam</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
-            <directory>./Granam/CzechVocative/src</directory>
-        </whitelist>
-    </filter>
 </phpunit>

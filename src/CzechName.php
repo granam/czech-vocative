@@ -1,4 +1,5 @@
 <?php
+
 namespace Granam\CzechVocative;
 
 class CzechName
@@ -12,12 +13,12 @@ class CzechName
      */
     public function vocative(string $name, bool $isWoman = null, bool $isLastName = null): string
     {
-        $name = \trim($name);
-        if (\preg_match('~[^[:alpha:]]$~u', $name)) {
+        $name = trim($name);
+        if (preg_match('~[^[:alpha:]]$~u', $name)) {
             return $name; // name with trailing non-letter is left untouched
         }
-        $name = \mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
-        $key = \mb_strtolower($name, 'UTF-8');
+        $name = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
+        $key = mb_strtolower($name, 'UTF-8');
 
         if ($isWoman === null) {
             $isWoman = !$this->isMale($key);
@@ -25,7 +26,7 @@ class CzechName
 
         if ($isWoman) {
             if ($isLastName === null) {
-                list(, $type) = $this->getMatchingSuffix(
+                [, $type] = $this->getMatchingSuffix(
                     $key,
                     $this->getWomanFirstVsLastNameSuffixes()
                 );
@@ -52,7 +53,7 @@ class CzechName
     {
         $name = mb_strtolower($name, 'UTF-8');
 
-        list(, $sex) = $this->getMatchingSuffix(
+        [, $sex] = $this->getMatchingSuffix(
             $name,
             $this->getManVsWomanSuffixes()
         );
@@ -62,23 +63,23 @@ class CzechName
 
     private function vocativeMan(string $name, string $key): string
     {
-        list($match, $suffix) = $this->getMatchingSuffix(
+        [$match, $suffix] = $this->getMatchingSuffix(
             $key,
             $this->getManSuffixes()
         );
 
         if ($match) {
-            $name = \mb_substr($name, 0, -1 * mb_strlen($match));
+            $name = mb_substr($name, 0, -1 * mb_strlen($match));
         }
         $name .= $suffix;
 
-        return \mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
+        return mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
     }
 
     private function vocativeWomanFirstName(string $name): string
     {
-        if (\mb_substr($name, -1) === 'a') {
-            return \mb_substr($name, 0, -1) . 'o';
+        if (mb_substr($name, -1) === 'a') {
+            return mb_substr($name, 0, -1) . 'o';
         }
 
         return $name;
@@ -97,9 +98,9 @@ class CzechName
     private function getMatchingSuffix(string $name, array $suffixes): array
     {
         // it is important(!) to try suffixes from longest to shortest
-        foreach (\range(\mb_strlen($name), 1) as $length) {
-            $suffix = \mb_substr($name, -1 * $length);
-            if (\array_key_exists($suffix, $suffixes)) {
+        foreach (range(mb_strlen($name), 1) as $length) {
+            $suffix = mb_substr($name, -1 * $length);
+            if (array_key_exists($suffix, $suffixes)) {
                 return [$suffix, $suffixes[$suffix]];
             }
         }
@@ -122,9 +123,9 @@ class CzechName
 
     private function readSuffixes(string $file): array
     {
-        $filename = __DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . $file;
+        $filename = __DIR__ . '/data/' . $file;
 
-        return \unserialize(\file_get_contents($filename), ['allowed_classes' => false]);
+        return unserialize(file_get_contents($filename), ['allowed_classes' => false]);
     }
 
     private function getManVsWomanSuffixes(): array
