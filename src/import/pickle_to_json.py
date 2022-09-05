@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys
 import json
 import pickle
 
-print json.dumps(pickle.load(sys.stdin))
+data = sys.stdin.buffer.read()
+print(json.dumps(pickle.loads(data)))

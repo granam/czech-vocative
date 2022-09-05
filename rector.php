@@ -2,33 +2,29 @@
 
 declare(strict_types=1);
 
-use Rector\Core\Configuration\Option;
-use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Set\ValueObject\SetList;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    // get parameters
-    $parameters = $containerConfigurator->parameters();
-
-    // Define what rule sets will be applied
-    $parameters->set(Option::SETS, [
+return static function (RectorConfig $rectorConfig): void {
+    // here we can define, what sets of rules will be applied
+    // tip: use "SetList" class to autocomplete sets
+    $rectorConfig->sets([
+        SetList::CODE_QUALITY,
         SetList::PHP_71,
         SetList::PHP_72,
         SetList::PHP_73,
-//        SetList::PHP_74,
+        SetList::PHP_74,
 //        SetList::PHP_80,
-        PHPUnitSetList::PHPUNIT_60,
+//        SetList::PHP_81,
+        \Rector\PHPUnit\Set\PHPUnitSetList::PHPUNIT_60,
         PHPUnitSetList::PHPUNIT_70,
-        PHPUnitSetList::PHPUNIT_75,
         PHPUnitSetList::PHPUNIT_80,
         PHPUnitSetList::PHPUNIT_90,
         PHPUnitSetList::PHPUNIT_91,
     ]);
 
-    // get services (needed for register a single rule)
-    // $services = $containerConfigurator->services();
-
-    // register a single rule
-    // $services->set(TypedPropertyRector::class);
+    // register single rule
+    $rectorConfig->rule(TypedPropertyRector::class);
 };
