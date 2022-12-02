@@ -4,7 +4,7 @@
 
 ## Credits
  - All credits belongs to the original [bigit/vokativ](https://bitbucket.org/bigit/vokativ.git) library author Petr Joachim.
- - This is just port to support PHP 5.4+ (and to test it by [Travis CI](https://travis-ci.com/)).
+ - This is just port to support higher versions of PHP (and to have atomatic tests on push).
  
  ---
 
@@ -18,8 +18,6 @@
 ```bash
 composer require granam/czech-vocative
 ```
-
-Podporované verze PHP 5.4+
 
 ## Použití
 
